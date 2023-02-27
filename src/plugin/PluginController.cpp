@@ -1,4 +1,4 @@
-#include "PluginController.h"
+#include "plugin/PluginController.h"
 
 #include <filesystem>
 #include <iostream>

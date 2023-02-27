@@ -1,4 +1,4 @@
-#include "Plugin.h"
+#include "plugin/Plugin.h"
 
 #include <dlfcn.h>
 
@@ -16,6 +16,7 @@ void Plugin::load()
 
     //   handle = dlopen( file.string().c_str(), RTLD_GLOBAL );
     handle = dlopen( file.string().c_str(), RTLD_LAZY );
+    std::cout << "handle " << handle << std::endl;
 
     if ( nullptr != handle )
     {
@@ -25,8 +26,6 @@ void Plugin::load()
     }
     else
     {
-        std::cout << "handle " << handle << std::endl;
-
         char* errormessage = dlerror();
 
         std::cout << "errormessage: " << errormessage << std::endl;
@@ -39,7 +38,10 @@ void Plugin::close() const
 
     unsubscribe();
 
+    std::cout << "handle " << handle << std::endl;
     dlclose( handle );
+
+    std::cout << std::endl;
 }
 
 std::string Plugin::getName() const

@@ -21,7 +21,11 @@ void FactoryController::subscribe( std::shared_ptr< FactoryIf > const factory )
 
 void FactoryController::unsubscribe( std::string const &type )
 {
-	factories.erase(type);
+    auto factory = get( type ); 
+
+	factories.erase( type );
+
+    factory = nullptr;
 }
 
 std::shared_ptr< FactoryIf > FactoryController::get( std::string const &type ) const
@@ -34,7 +38,7 @@ std::shared_ptr< FactoryIf > FactoryController::get( std::string const &type ) c
     }
     catch ( const std::out_of_range &oor )
     {
-        std::cerr << "Out of Range error: " << oor.what() << '\n';
+        std::cerr << "Out of Range error: " << oor.what() << " type: " << type << '\n';
     }
 
     return result;
