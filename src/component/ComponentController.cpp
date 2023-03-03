@@ -45,8 +45,26 @@ std::shared_ptr< ComponentIf > ComponentController::get( std::string const &type
     return result;
 }
 
+std::map< std::string, std::shared_ptr< ComponentIf >> ComponentController::get( std::string const &type ) const
+{
+    std::map< std::string, std::shared_ptr< ComponentIf >> result;
+
+    try
+    {
+        result = components.at( type );
+    }
+    catch ( const std::out_of_range &oor )
+    {
+        std::cerr << "Out of Range error: " << oor.what() << " ComponentController::get" << "type: " << type << '\n';
+    }
+
+    return result;
+}
+
 void ComponentController::erase( std::string const &type, std::string const &name )
 {
+    std::cout << "ComponentController::erase type: " << type << "name: " << name << std::endl;
+
     try
     {
         components.at( type ).at( name ).reset();
@@ -65,6 +83,8 @@ void ComponentController::erase( std::string const &type, std::string const &nam
 
 void ComponentController::erase( std::string const &type )
 {
+    std::cout << "ComponentController::erase" << std::endl;
+
     auto first = components.at( type ).begin();
     auto last = components.at( type ).end();
 
@@ -72,12 +92,16 @@ void ComponentController::erase( std::string const &type )
 
     std::for_each( first, last, destroy );
 
+    std::cout << "ComponentController::erase2" << std::endl;
+
     components.erase( type );
+
+    std::cout << "ComponentController::erase3" << std::endl;
 }
 
 void ComponentController::list() const
 {
-    std::cout << "ComponentController::list" << std::endl;
+    std::cout << "ComponentController::list 4.0" << std::endl;
 
     for ( auto const &[ type, componentsSameType ] : components )
     {
