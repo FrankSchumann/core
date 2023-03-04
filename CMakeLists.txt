@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.15 )
 
 project(core 
 		VERSION 0.0.0.1
-		DESCRIPTION "Controller Platform")
+		DESCRIPTION "Core of COPA")
 
 set(CMAKE_CXX_STANDARD 17)
 
