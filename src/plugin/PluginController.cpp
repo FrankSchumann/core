@@ -13,12 +13,10 @@ PluginController::PluginController( std::string const &_folder ) : folder( _fold
 
 void PluginController::loadPlugins()
 {
-    std::cout << "loadPlugins from folder " << folder << std::endl;
+    std::cout << "PluginController::loadPlugins folder: " << folder << std::endl;
 
     for ( auto &file : std::filesystem::recursive_directory_iterator( folder ) )
     {
-        std::cout << file.path().string() << std::endl;
-
         std::shared_ptr< Plugin > plugin = std::make_shared< Plugin >( file.path() );
 
         plugin->load();
@@ -27,8 +25,6 @@ void PluginController::loadPlugins()
 
         plugins[ name ] = plugin;
     }
-
-    std::cout << std::endl;
 }
 
 void PluginController::loadPlugin( std::string const &plugin ) const
@@ -37,8 +33,6 @@ void PluginController::loadPlugin( std::string const &plugin ) const
 
 void PluginController::closePlugins() const
 {
-    std::cout << "PluginController::closePlugins" << std::endl;
-
     for ( auto const &[ name, plugin ] : plugins )
     {
         plugin->close();
@@ -60,7 +54,7 @@ void PluginController::closePlugin( std::string const &plugin ) const
 
 void PluginController::list() const
 {
-    std::cout << "PluginController::list " << std::endl;
+    std::cout << "PluginController::list" << std::endl;
 
     for ( auto const &[ name, plugin ] : plugins )
     {

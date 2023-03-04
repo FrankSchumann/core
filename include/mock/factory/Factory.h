@@ -15,6 +15,6 @@ class Factory : public ::core::FactoryIf
 
     MOCK_METHOD( std::shared_ptr< ::core::ComponentIf >, create, ( std::string const &name ), ( const, override ) );
     MOCK_METHOD( std::string, getType, (), ( const, override ) );
-    MOCK_METHOD( std::vector<std::string>, getDependencies, (), ( const, override ) );
+    MOCK_METHOD( std::vector< std::string >, getDependencies, (), ( const, override ) );
 };
 }

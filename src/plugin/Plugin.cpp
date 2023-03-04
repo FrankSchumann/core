@@ -10,13 +10,12 @@ Plugin::Plugin( std::filesystem::path const& _file ) : file( _file )
 
 void Plugin::load()
 {
-    std::cout << "load plugin from file " << file.string() << std::endl;
+    std::cout << "Plugin::load file: " << file.string() << std::endl;
 
     typedef void ( *subscribeFunctionType )();
 
     //   handle = dlopen( file.string().c_str(), RTLD_GLOBAL );
     handle = dlopen( file.string().c_str(), RTLD_LAZY );
-    std::cout << "handle " << handle << std::endl;
 
     if ( nullptr != handle )
     {
@@ -34,14 +33,11 @@ void Plugin::load()
 
 void Plugin::close() const
 {
-    std::cout << "close plugin from file " << file.string() << std::endl;
+    std::cout << "Plugin::close file: " << file.string() << std::endl;
 
     unsubscribe();
 
-    std::cout << "handle " << handle << std::endl;
     dlclose( handle );
-
-    std::cout << std::endl;
 }
 
 std::string Plugin::getName() const

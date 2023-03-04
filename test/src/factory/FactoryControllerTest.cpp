@@ -5,16 +5,16 @@
 
 TEST( FactoryControllerTest, Failed )
 {
-	GTEST_FAIL();
+    GTEST_FAIL();
 }
 
 TEST( FactoryControllerTest, subscribe )
 {
-	auto factory = std::make_shared< mock::core::Factory >();
+    auto factory = std::make_shared< mock::core::Factory >();
 
     core::FactoryController factoryController;
 
-    factoryController.subscribe(factory);
+    factoryController.subscribe( factory );
 
     GTEST_SUCCEED();
 }

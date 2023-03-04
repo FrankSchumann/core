@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
-#include "PluginControllerIf.h"
 #include "Plugin.h"
+#include "PluginControllerIf.h"
 
 namespace core
 {

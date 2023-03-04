@@ -7,7 +7,6 @@
 
 namespace core
 {
-
 std::string Info::getVersion()
 {
     return CORE_VERSION;
@@ -158,7 +157,7 @@ std::string Info::getSubsytem()
 
 void Info::show()
 {
-    std::cout <<__PRETTY_FUNCTION__ << std::endl;
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     std::cout << std::endl;
     std::cout << "Version: " << getVersion() << std::endl;
     std::cout << "Major: " << getMajorVersion() << std::endl;

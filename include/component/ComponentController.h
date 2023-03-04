@@ -3,9 +3,9 @@
 #include <map>
 #include <memory>
 
+#include "../factory/FactoryControllerIf.h"
 #include "ComponentControllerIf.h"
 #include "ComponentIf.h"
-#include "../factory/FactoryControllerIf.h"
 
 namespace core
 {
@@ -17,7 +17,7 @@ class ComponentController : public ComponentControllerIf
 
     virtual void create( std::string const &type, std::string const &name ) override;
     virtual std::shared_ptr< ComponentIf > get( std::string const &type, std::string const &name ) const override;
-    virtual std::map< std::string, std::shared_ptr< ComponentIf >> get( std::string const &type ) const override;
+    virtual std::map< std::string, std::shared_ptr< ComponentIf > > get( std::string const &type ) const override;
     virtual void erase( std::string const &type, std::string const &name ) override;
     virtual void erase( std::string const &type ) override;
 
@@ -26,7 +26,7 @@ class ComponentController : public ComponentControllerIf
    private:
     static std::map< std::string, std::map< std::string, std::shared_ptr< ComponentIf > > > components;
 
-    void myTest( std::pair< std::string, std::shared_ptr< ComponentIf > > componentPair);
+    void destroyComponentPair( std::pair< std::string, std::shared_ptr< ComponentIf > > componentPair );
 
     std::shared_ptr< FactoryControllerIf > factoryController;
 };

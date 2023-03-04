@@ -12,8 +12,6 @@ FactoryController::FactoryController()
 
 void FactoryController::subscribe( std::shared_ptr< FactoryIf > const factory )
 {
-    std::cout << "FactoryController::subscribe " << factory->getType() << std::endl;
-
     std::string const type = factory->getType();
 
     factories[ type ] = factory;
@@ -21,9 +19,9 @@ void FactoryController::subscribe( std::shared_ptr< FactoryIf > const factory )
 
 void FactoryController::unsubscribe( std::string const &type )
 {
-    auto factory = get( type ); 
+    auto factory = get( type );
 
-	factories.erase( type );
+    factories.erase( type );
 
     factory = nullptr;
 }
@@ -50,7 +48,7 @@ void FactoryController::list() const
 
     for ( auto const &factory : factories )
     {
-        std::cout << "Factory first: " << factory.first << " second " << factory.second->getType() << std::endl;
+        std::cout << "Factory first: " << factory.first << " second: " << factory.second->getType() << std::endl;
     }
 
     std::cout << std::endl;

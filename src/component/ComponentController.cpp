@@ -45,9 +45,9 @@ std::shared_ptr< ComponentIf > ComponentController::get( std::string const &type
     return result;
 }
 
-std::map< std::string, std::shared_ptr< ComponentIf >> ComponentController::get( std::string const &type ) const
+std::map< std::string, std::shared_ptr< ComponentIf > > ComponentController::get( std::string const &type ) const
 {
-    std::map< std::string, std::shared_ptr< ComponentIf >> result;
+    std::map< std::string, std::shared_ptr< ComponentIf > > result;
 
     try
     {
@@ -55,7 +55,8 @@ std::map< std::string, std::shared_ptr< ComponentIf >> ComponentController::get(
     }
     catch ( const std::out_of_range &oor )
     {
-        std::cerr << "Out of Range error: " << oor.what() << " ComponentController::get" << "type: " << type << '\n';
+        std::cerr << "Out of Range error: " << oor.what() << " ComponentController::get"
+                  << "type: " << type << '\n';
     }
 
     return result;
@@ -84,10 +85,20 @@ void ComponentController::erase( std::string const &type, std::string const &nam
     }
 }
 
-void ComponentController::myTest( std::pair< std::string, std::shared_ptr< ComponentIf > > componentPair)
+void ComponentController::erase( std::string const &type )
 {
-    std::cout << "myTest" << std::endl;
+    auto first = components.at( type ).begin();
+    auto last = components.at( type ).end();
 
+    auto destroy = [ this ]( auto &componentPair ) { destroyComponentPair( componentPair ); };
+
+    std::for_each( first, last, destroy );
+
+    components.erase( type );
+}
+
+void ComponentController::destroyComponentPair( std::pair< std::string, std::shared_ptr< ComponentIf > > componentPair )
+{
     auto const type = componentPair.second->getType();
     auto const name = componentPair.first;
 
@@ -95,40 +106,19 @@ void ComponentController::myTest( std::pair< std::string, std::shared_ptr< Compo
     factory->cleanup( name );
 
     componentPair.second.reset();
-
-    std::cout << "name" << name << std::endl;
-}
-
-void ComponentController::erase( std::string const &type )
-{
-    std::cout << "ComponentController::erase" << std::endl;
-
-    auto first = components.at( type ).begin();
-    auto last = components.at( type ).end();
-
-    // auto destroy = [ this ]( auto &componentPair ) { componentPair.second.reset(); myTest( componentPair ); };
-    auto destroy = [ this ]( auto &componentPair ) { myTest( componentPair ); };
-
-    std::for_each( first, last, destroy );
-
-    std::cout << "ComponentController::erase2" << std::endl;
-
-    components.erase( type );
-
-    std::cout << "ComponentController::erase3" << std::endl;
 }
 
 void ComponentController::list() const
 {
-    std::cout << "ComponentController::list 4.0" << std::endl;
+    std::cout << "ComponentController::list" << std::endl;
 
     for ( auto const &[ type, componentsSameType ] : components )
     {
-        std::cout << std::endl << "Type: " << type << std::endl;
+        std::cout << std::endl << "type: " << type << std::endl;
 
         for ( auto const &[ name, component ] : componentsSameType )
         {
-            std::cout << "Name: " << name << std::endl;
+            std::cout << "name: " << name << std::endl;
         }
     }
 }
