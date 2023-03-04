@@ -26,6 +26,8 @@ class ComponentController : public ComponentControllerIf
    private:
     static std::map< std::string, std::map< std::string, std::shared_ptr< ComponentIf > > > components;
 
+    void myTest( std::pair< std::string, std::shared_ptr< ComponentIf > > componentPair);
+
     std::shared_ptr< FactoryControllerIf > factoryController;
 };
 

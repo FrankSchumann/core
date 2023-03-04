@@ -65,6 +65,9 @@ void ComponentController::erase( std::string const &type, std::string const &nam
 {
     std::cout << "ComponentController::erase type: " << type << "name: " << name << std::endl;
 
+    std::shared_ptr< FactoryIf > factory = factoryController->get( type );
+    factory->cleanup( name );
+
     try
     {
         components.at( type ).at( name ).reset();
@@ -81,6 +84,21 @@ void ComponentController::erase( std::string const &type, std::string const &nam
     }
 }
 
+void ComponentController::myTest( std::pair< std::string, std::shared_ptr< ComponentIf > > componentPair)
+{
+    std::cout << "myTest" << std::endl;
+
+    auto const type = componentPair.second->getType();
+    auto const name = componentPair.first;
+
+    std::shared_ptr< FactoryIf > factory = factoryController->get( type );
+    factory->cleanup( name );
+
+    componentPair.second.reset();
+
+    std::cout << "name" << name << std::endl;
+}
+
 void ComponentController::erase( std::string const &type )
 {
     std::cout << "ComponentController::erase" << std::endl;
@@ -88,7 +106,8 @@ void ComponentController::erase( std::string const &type )
     auto first = components.at( type ).begin();
     auto last = components.at( type ).end();
 
-    auto destroy = []( auto &componentPair ) { componentPair.second.reset(); };
+    // auto destroy = [ this ]( auto &componentPair ) { componentPair.second.reset(); myTest( componentPair ); };
+    auto destroy = [ this ]( auto &componentPair ) { myTest( componentPair ); };
 
     std::for_each( first, last, destroy );
 
