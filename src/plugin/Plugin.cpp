@@ -47,7 +47,7 @@ std::string Plugin::getName() const
 
 void Plugin::show() const
 {
-    std::cout << "Plugin: " << name << " File: " << file.string() << " Version: " << version << std::endl;
+    std::cout << std::left << std::setw(20) << name << std::setw(15) << version << file.string() << std::endl;
 }
 
 void Plugin::receiveVersion()

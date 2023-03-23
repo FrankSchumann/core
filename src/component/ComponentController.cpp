@@ -121,5 +121,7 @@ void ComponentController::list() const
             std::cout << "name: " << name << std::endl;
         }
     }
+
+    std::cout << std::endl;
 }
 }

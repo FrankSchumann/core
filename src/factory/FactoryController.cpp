@@ -1,6 +1,7 @@
 #include "factory/FactoryController.h"
 
 #include <iostream>
+#include <iomanip>
 
 namespace core
 {
@@ -48,7 +49,7 @@ void FactoryController::list() const
 
     for ( auto const &factory : factories )
     {
-        std::cout << "Factory first: " << factory.first << " second: " << factory.second->getType() << std::endl;
+        std::cout << std::left << std::setw(20) << factory.first << "type: " << factory.second->getType() << std::endl;
     }
 
     std::cout << std::endl;
