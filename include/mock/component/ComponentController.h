@@ -15,6 +15,7 @@ class ComponentController : public ::core::ComponentControllerIf
 
     MOCK_METHOD( void, create, ( std::string const &type, std::string const &name ), ( override ) );
     MOCK_METHOD( std::shared_ptr< ::core::ComponentIf >, get, ( std::string const &type, std::string const &name ), ( const, override ) );
+    MOCK_METHOD( ( std::map< std::string, std::shared_ptr< ::core::ComponentIf > > ), get, ( std::string const &type ), (const, override ) );
     MOCK_METHOD( void, erase, ( std::string const &type, std::string const &name ), ( override ) );
     MOCK_METHOD( void, erase, ( std::string const &type ), ( override ) );
 };
